@@ -116,9 +116,16 @@ tr:nth-child( odd ) {
     text-align: center;
 }
 
-.button, .delete {
+.delete {
+    padding: 3% 5%;
+}
+
+.button {
     padding: 2% 5%;
     margin: .5%;
+}
+
+.button, .delete {
     background-color: #eee;
 }
 
@@ -169,10 +176,6 @@ canvas {
 .pagination a {
     text-decoration: none;
     color: #000;
-}
-
-.delete {
-    padding: 10%;
 }
 
 .delete:hover {
