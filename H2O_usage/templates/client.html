@@ -32,6 +32,9 @@
             {% else %}
                 <p>Found no records of water usage.</p>
             {% endif %}
+            {% if usages|length < 7 %}
+            <h3>You should have at least 7 water usage records to use the water usage predictor.</h3>
+            {% endif %}
         </div>
         
         {% if usages %}
@@ -41,6 +44,7 @@
         </div>
         {% endif %}
 
+        {% if usages|length >= 7 %}
         <div class="client_usage_sub">
             <h1>Water Usage Predictor</h1>
             {% if error_message_prediction %}
@@ -60,6 +64,7 @@
             <h3>Your water consumption on {{ date }} will be {{ prediction }} liters.</h3>
             {% endif %}
         </div>
+        {% endif %}
     </div>
 
     <div class="main_client">

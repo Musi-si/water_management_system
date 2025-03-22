@@ -21,8 +21,6 @@ class Command( BaseCommand ):
 
         df = df.drop( columns = [ 'date' ] )
 
-        print( df.head() )
-
         x = df[ [ 'year', 'month', 'day', 'weekday' ] ]
         y = df[ 'quantity' ]
 
