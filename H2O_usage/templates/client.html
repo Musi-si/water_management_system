@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <legend><h1 class="title">Water Management System</h1></legend>
+    <div class="client_usage">
+        <h1>Welcome, {{ client.name }}</h1>
+        <div class="client_usage_sub">
+            <h1>Water Usage Table</h1>
+            {% if usages %}
+                <table cellspacing="0" cellpadding="5" border="1">
+                    <thead>
+                        <th>Date</th>
+                        <th>Quantity (liters)</th>
+                    </thead>
+                    <tbody>
+                        {% for usage in usages %}
+                            <tr>
+                                <td>{{ usage.date }}</td>
+                                <td>{{ usage.quantity }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Found no records of water usage.</p>
+            {% endif %}
+        </div>
+        
+        {% if usages %}
+        <div class="client_usage_sub" id="bar_chart">
+                <h1>Water Usage Graph</h1>
+                <canvas id="client_usage_chart" width="600" height="200"></canvas>
+        </div>
+        {% endif %}
+
+        <div class="client_usage_sub">
+            <h1>Water Usage Predictor</h1>
+            {% if error_message_prediction %}
+            <h3 style="text-align: center; color: red;">{{ error_message_prediction }}</h3>
+            {% endif %}
+            <form method="POST" action="{% url 'predict_usage' %}" class="form">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ client.id }}">
+
+                <label for="date">Date:</label><br>
+                <input type="date" name="date" class="input" min="{{ today }}" required><br>
+
+                <button type="submit" class="button">Predict</button>
+            </form>
+
+            {% if prediction %}
+            <h3>Your water consumption on {{ date }} will be {{ prediction }} liters.</h3>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="main_client">
+        <div class="record">
+            <h1>Record Water Usage</h1>
+            {% if error_message_record %}
+            <h3 style="text-align: center; color: red;">{{ error_message_record }}</h3>
+            {% endif %}
+            <form method="POST" action="{% url 'record_usage' %}" class="form">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ client.id }}">
+
+                <label for="date">Date:</label><br>
+                <input type="date" name="date" class="input" required><br>
+        
+                <label for="quantity">Quantity in liters:</label><br>
+                <input type="number" name="quantity" step="0.01" class="input" required><br>
+        
+                <button type="submit" class="button">Record Usage</button>
+            </form>
+        </div>
+
+        <div class="filter">    
+            <h1>Filter Water Usage</h1>
+            {% if error_message %}
+                <h3 style="text-align: center; color: red;">{{ error_message }}</h3>
+            {% endif %}
+            <form method="GET" action="{% url 'filter_client_usage' %}" class="form">
+                <input type="hidden" name="id" value="{{ client.id }}">
+
+                <label for="start_date">Start Date:</label><br>
+                <input type="date" name="start_date" class="input"><br>
+        
+                <label for="end_date">End Date:</label><br>
+                <input type="date" name="end_date" class="input"><br>
+        
+                <label for="min_quantity">Minimum Quantity in liters:</label><br>
+                <input type="number" name="min_quantity" step="0.01" class="input"><br>
+        
+                <label for="max_quantity">Maximum Quantity in liters:</label><br>
+                <input type="number" name="max_quantity" step="0.01" class="input"><br>
+        
+                <button type="submit" class="button">Filter</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById( 'client_usage_chart' ).getContext( '2d' )
+        const labels = JSON.parse( '{{ labels|safe }}' )
+        const data = JSON.parse( '{{ data|safe }}' )
+
+        new Chart( ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [ {
+                    label: 'Water Usage (Quantity)',
+                    data: data,
+                    backgroundColor: '#fff',
+                    borderColor: '#afa',
+                    borderWidth: 3,
+                    barPercentage: 0.8,
+                    hoverBackgroundColor: '#afa',
+                    hoverBorderColor: '#afa'
+                } ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#fff',
+                            font: {
+                                size: 15,
+                                family: 'garamond'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#333',
+                        bodyColor: '#fff',
+                        bodyFont: {
+                            family: 'garamond'
+                        },
+                        titleColor: '#fff',
+                        titleFont: {
+                            family: 'garamond'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#fff',
+                            font: {
+                                size: 12,
+                                family: 'garamond'
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#fff',
+                            stepSize: 1,
+                            precision: 0,
+                            font: {
+                                size: 12,
+                                family: 'garamond'
+                            }
+                        },
+                        grid: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
+                }
+            }
+        } )
+    </script>
+</body>
+</html>

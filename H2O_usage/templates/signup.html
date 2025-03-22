@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <legend><h1 class="title">Water Management System</h1></legend>
+    {% if error_message %}
+        <h3 style="text-align: center; color: red;">{{ error_message }}</h3>
+    {% endif %}
+    <div class="main_signup">
+        <div class="signup">
+            <h1>Register</h1>
+            <form method="POST" action="{% url 'signup' %}" id="signup" class="form">
+                {% csrf_token %}
+
+                <input type="hidden" name="account_type" id="account_type_signup" value="client">
+
+                <label for="name">Name:</label><br>
+                <input type="text" name="name" class="input" required><br>
+        
+                <label for="email">Email:</label><br>
+                <input type="email" name="email" class="input" required><br>
+                
+                <label for="account">Account:</label><br>
+                <input type="radio" name="account" value="admin" id="admin_signup" required>Admin account<br>
+                <input type="radio" name="account" value="client" id="client" required checked>Client account<br><br>
+                
+                <div id="pin_signup_div" class="pin" style="display: none;">
+                    <label for="pin">PIN:</label><br>
+                    <input type="number" id="pin_signup" name="pin" class="input" required><br>
+                </div>
+                
+                <label for="password">Password:</label><br>
+                <input type="password" name="password" class="input" minlength="8" maxlength="15" required><br>
+        
+                <button type="submit" class="button">Register</button>
+            </form>
+        </div>
+
+        <div class="signin">
+            <h1>Login</h1>
+            <form method="POST" action="{% url 'signin' %}" id="signin" class="form">
+                {% csrf_token %}
+
+                <input type="hidden" name="account_type" id="account_type_signin" value="client">
+
+                <label for="email">Email:</label><br>
+                <input type="email" name="email" class="input" required><br>
+                
+                <label for="account">Account:</label><br>
+                <input type="radio" name="account" value="admin" id="admin_signin" required>Admin account<br>
+                <input type="radio" name="account" value="client" id="client_signin" required checked>Client account<br><br>
+                
+                <div id="pin_signin_div" class="pin">
+                    <label for="pin">PIN:</label><br>
+                    <input type="number" id="pin_signin" name="pin" class="input"><br>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="{{ message.tags }}" style="color: red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+                
+                <label for="password">Password:</label><br>
+                <input type="password" name="password" class="input" minlength="8" maxlength="15" required><br>
+        
+                <button type="submit" class="button">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById( 'signup' ).addEventListener( 'change', function() {
+            const isAdmin = document.getElementById( 'admin_signup' ).checked
+            const pinField = document.getElementById( 'pin_signup_div' )
+            const pinInput = document.getElementById( 'pin_signup' )
+            const accountType = document.getElementById( 'account_type_signup' )
+            pinField.style.display = isAdmin ? 'block' : 'none'
+            accountType.value = isAdmin ? 'admin' : 'client'
+            if( isAdmin ) {
+                pinInput.setAttribute( 'required', 'required' )
+            } else {
+                pinInput.removeAttribute( 'required' )
+            }
+        } )
+
+        document.getElementById( 'signin' ).addEventListener( 'change', function() {
+            const isAdmin = document.getElementById( 'admin_signin' ).checked
+            const pinField = document.getElementById( 'pin_signin_div' )
+            const pinInput = document.getElementById( 'pin_signin' )
+            const accountType = document.getElementById( 'account_type_signin' )
+            pinField.style.display = isAdmin ? 'block' : 'none'
+            accountType.value = isAdmin ? 'admin' : 'client'
+            if( isAdmin ) {
+                pinInput.setAttribute( 'required', 'required' )
+            } else {
+                pinInput.setAttribute( 'required' )
+            }
+        } )
+    </script>
+</body>
+</html>

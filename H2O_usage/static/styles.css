@@ -1,0 +1,177 @@
+* {
+    font-family: garamond;
+}
+
+body {
+    background-color: #eee;
+    margin: 0;
+}
+
+legend {
+    background-color: #fff;
+    margin: 0;
+    padding: 1%;
+    box-shadow: 0 3px 3px #888;
+}
+
+.title {
+    font-size: 230%;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.main_signup, .main_client {
+    display: flex;
+    width: 60%;
+}
+
+.main_client_admin {
+    display: flex;
+    width: 40%;
+    margin: 1% auto 3%;
+}
+
+.main_signup, .main_client, .client_usage, .admin_usage, .main_client_admin {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #888;
+}
+
+.main_signup, .main_client, .client_usage, .admin_usage {
+    margin: 3% auto 1%;
+}
+
+.client_usage, .admin_usage {
+    padding: 1%;
+}
+
+.client_usage {
+    width: 58%;
+}
+
+.admin_usage {
+    width: 78%;
+}
+
+table {
+    border: 0;
+    box-shadow: 2px 2px 2px #888;
+    text-align: center;
+    margin: auto;
+    width: 60%;
+}
+
+th {
+    background-color: #ffffffaa;
+}
+
+tr:nth-child( even ) {
+    background-color: #ffffffaa;
+}
+
+tr:nth-child( odd ) {
+    background-color: #eeeeeeff;
+}
+
+.signup, .signin, .record, .filter {
+    width: 45%;
+}
+
+.client_usage_sub, .admin_usage_sub {
+    width: 90%;
+    margin: 2% auto;
+}
+
+.signup, .signin, .record, .filter, .client_usage_sub, .admin_usage_sub, .filter_admin {
+    padding: 1%;
+    background-color: #eee;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #888;
+    text-align: center;
+}
+
+.signup, .record {
+    margin: 2% 1% 2% 2%;
+}
+
+.signin, .filter {
+    margin: 2% 2% 2% 1%;
+}
+
+.filter_admin {
+    margin: 4%;
+    width: 90%;
+}
+
+.input {
+    width: 80%;
+    padding: 1%;
+    margin: 0 0 2%;
+    border: 0;
+    border-bottom: 5px solid #ddd;
+    font-size: 100%;
+    text-align: center;
+}
+
+.button, .delete {
+    padding: 2% 5%;
+    margin: .5%;
+    background-color: #eee;
+}
+
+.button, .button_graph, .delete {
+    border: 0;
+    font-size: 100%;
+    border-radius: 30px;
+    box-shadow: 2px 2px 2px #888;
+}
+
+.button:hover, .button_graph:hover {
+    background-color: #afa;
+}
+
+.button_graph {
+    background-color: #fff;
+    margin: 2%;
+    padding: 1% 3%;
+}
+
+.pin {
+    display: none;
+}
+
+.form {
+    background-color: #fff;
+    margin: 1% 2% 2%;
+    padding: 3% 1%;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #888;
+}
+
+canvas {
+    display: block;
+    margin: 2% auto;
+    width: 95%;
+    border: 0;
+    box-shadow: 2px 2px 2px #888;
+    padding: 3%;
+    background-color: #555;
+}
+
+.pagination button{
+    margin: 1%;
+    padding: .5%;
+    text-decoration: none;
+    color: #000;
+}
+
+/* .delete { */
+    /* padding: 5%; */
+/* } */
+
+.delete:hover {
+    background-color: #faa;
+}
