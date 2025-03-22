@@ -1,7 +1,9 @@
 **Water Management System**
 
 **Project Overview**
+
 The Water Management System is a Django-based application designed to efficiently manage and monitor water usage.
+
 It helps in tracking water usage and predicting future usage patterns depending on past consumption.
 
 **Features**
@@ -11,7 +13,9 @@ It helps in tracking water usage and predicting future usage patterns depending 
 
 **Installation & Setup**
 **Clone the Repository**
+
 git clone https://github.com/Musi-si/water_management_system.git
+
 cd water_management_system
 
 **Note: Admin Access**
