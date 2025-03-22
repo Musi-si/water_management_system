@@ -247,27 +247,27 @@ def delete_client_view( request ):
             } )
         
 # QUERY OK
-# model = joblib.load( 'water_usage_model.pkl' )
-# def predict_usage( request ):
-#     if request.method == 'POST':
-#         id = request.POST.get( 'id' )
-#         date = request.POST.get( 'date' )
-#         usages = H2O_management.get_client_usage( id )
+model = joblib.load( 'water_usage_model.pkl' )
+def predict_usage( request ):
+    if request.method == 'POST':
+        id = request.POST.get( 'id' )
+        date = request.POST.get( 'date' )
+        usages = H2O_management.get_client_usage( id )
 
-#         try:
-#             date_obj = datetime.strptime( date, '%Y-%m-%d' )
+        try:
+            date_obj = datetime.strptime( date, '%Y-%m-%d' )
 
-#             data = {
-#                 'year': [ date_obj.year ],
-#                 'month': [ date_obj.month ],
-#                 'day': [ date_obj.day ],
-#                 'weekday': [ date_obj.weekday() ]
-#             }
+            data = {
+                'year': [ date_obj.year ],
+                'month': [ date_obj.month ],
+                'day': [ date_obj.day ],
+                'weekday': [ date_obj.weekday() ]
+            }
 
-#             df = pd.DataFrame( data )
-#             prediction = round( model.predict( df )[ 0 ], 2 )
-#             return client_graph_view( request, id, usages, date, prediction )
-#         except Exception as e:
-#             return render( request, 'client.html', {
-#                 'error_message_prediction': str( e )
-#             } )
+            df = pd.DataFrame( data )
+            prediction = round( model.predict( df )[ 0 ], 2 )
+            return client_graph_view( request, id, usages, date, prediction )
+        except Exception as e:
+            return render( request, 'client.html', {
+                'error_message_prediction': str( e )
+            } )

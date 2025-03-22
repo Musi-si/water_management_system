@@ -29,5 +29,5 @@ urlpatterns = [
     path( 'delete-admin', views.delete_admin_view, name = 'delete_admin' ),
     path( 'delete-client', views.delete_client_view, name = 'delete_client' ),
     path( 'get-clients/', views.get_clients_view, name = 'get_clients' ),
-    # path( 'get-prediction', views.predict_usage, name = 'predict_usage' )
+    path( 'get-prediction', views.predict_usage, name = 'predict_usage' )
 ]
